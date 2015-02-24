@@ -42,6 +42,23 @@ void get_bio(void)
 }
 """
 
+''' the vulnerable function, which clears the bss'''
+hard_vulnfunc =\
+"""
+void get_bio(void)
+{
+  char bio[%u];
+
+  sendstr("Please give me a biography:\\n");
+  gets(bio);
+
+  sendstr("\\n");
+  sendstr("New entry!\\n");
+  printf("%%s:\\n%%s\\n", name, bio);
+  memset(name, 0, 20);
+}
+"""
+
 routines ={\
 'sendstr':\
 """
@@ -82,6 +99,7 @@ ssize_t readlen(int fd, char *buf, size_t n) {
 void get_name(void)
 {
   printf("Please give me a name for this biography entry: ");
+
   if(readlen(0, name, sizeof(name)) < 0)
   {
     sendstr("[-] read failed somehow, try again.\\n");
@@ -102,6 +120,7 @@ int main(void)
   get_bio();
 }
 """}
+
 
 ''' routines which are not called, but add entropy to the binary '''
 bloat = [\
@@ -156,9 +175,9 @@ int store_entry(char *ename, char *bio)
 libcfuncs =\
 [\
 "open(\"\", 0);",
-"mmap((void *)0,0,0,0,0,0);",
 "close(0);",
-"mprotect((void *)0,0,0);",
+"strfry((char *)0);"
+"memfrob((char *)0, 0);"
 "strncpy((char *)0,(char *)0, 0);",
 "sprintf((char *)0,\"\");",
 "time(0);",
