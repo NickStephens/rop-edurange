@@ -1,4 +1,4 @@
-This project aims to generate slightly different vulnerable binaries
+This challenge aims to generate slightly different vulnerable binaries
 on each run. The purpose of this is to serve as a gentle introduction to
 modern-day exploit development and binary analysis.
 
@@ -17,10 +17,15 @@ their target server.
 
 Things a student may have to do to complete the exploit include determining
 stack buffer sizes, finding rop gadgets, determining the addresses of user
-input, determining the addresses of PLT stubs and GOT entries.
+input, determining the addresses of PLT stubs and GOT entries. Think of it
+as a rop coloring book.
 
 Once a student has completed the challenge and dropped a remote shell, they
 should read the file 'flag' off the server and submit it for points.
 
 Each student in the class should receive a slightly different binary as well 
-as the address of a unique vulnerable server hosting their binary.
+as the address of a dedicated vulnerable server hosting their binary.
+
+Prerequisites:
+Students should have a basic understanding of C programming, Unix I/O, and 
+buffer overflow vulnerabilities.
