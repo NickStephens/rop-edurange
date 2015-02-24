@@ -1,0 +1,26 @@
+This project aims to generate slightly different vulnerable binaries
+on each run. The purpose of this is to serve as a gentle introduction to
+modern-day exploit development and binary analysis.
+
+Each binary generated only differs slightly. Binaries may differ in the
+number of routines, the size of stack buffers, the number of global variables,
+the number and locations of various PLT entries, and the number and 
+locations of various locally defined functions. The vulnerability and code 
+path to the vulnerable code does not differ among generations.
+
+Additionally each student is given a skeleton exploit which triggers the 
+vulnerability and lays out the stages of a successful rop chain. The script 
+comes incomplete, however, and will not successfully spawn a remote shell. 
+Students will have to analyze the binary as well as understand the intentions 
+of the exploit to complete the script and reliably drop a remote shell on 
+their target server.
+
+Things a student may have to do to complete the exploit include determining
+stack buffer sizes, finding rop gadgets, determining the addresses of user
+input, determining the addresses of PLT stubs and GOT entries.
+
+Once a student has completed the challenge and dropped a remote shell, they
+should read the file 'flag' off the server and submit it for points.
+
+Each student in the class should receive a slightly different binary as well 
+as the address of a unique vulnerable server hosting their binary.
