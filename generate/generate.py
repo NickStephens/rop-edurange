@@ -71,7 +71,7 @@ def generate_easy_vulnfunc():
 		generate the vulnerable function. at this point this just determines the buffersize.
 	'''
 
-	return vulnfunc % (random.randint(0x10, 0x201))
+	return vulnfunc % (random.randint(3, 15)*16)
 
 def generate_hard_vulnfunc():
 	'''
