@@ -1,0 +1,13 @@
+service vuln
+{
+    disable = no
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = vulnuser
+    bind        = 0.0.0.0
+    server      = /home/vulnuser/vuln
+    type        = UNLISTED
+    port        = 3000
+}
+

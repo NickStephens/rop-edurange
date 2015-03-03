@@ -1,0 +1,55 @@
+Roles:
+  - Name: NAT
+    Packages:
+      - gdb
+      - nasm
+      - git
+      - emacs
+    Recipes:
+      - sshd_password_login
+      - elf
+
+Groups:
+  - Name: Instructor
+    Access:
+      Administrator:
+        - NAT_Instance
+      User:
+        - NAT_Instance
+    Users:
+      - Login: instructor
+        Password: vLCu3Crf
+
+  - Name: Students
+    Access:
+      User: 
+        - NAT_Instance
+    Users:
+      - Login: student
+        Password: sWfwkNGblfv
+    Description: Describe this Player
+
+Scenarios:
+  - Name: ROP
+    Description: "This game teaches the basics of binary analysis and advanced exploitation techniques. It provides the player with a slightly different vulnerable binary on each play. Additionally the player is provided with a skeleton exploit for the binary. This exploit will lay out the steps necessary for successful exploitation, but comes incomplete. It is up to the student to analyze the vulnerable binary and fill in the missing pieces."
+    Instructions: None yet
+
+Clouds:
+  - Name: Cloud_1
+    CIDR_Block: 10.0.0.0/16
+    Scenario: ROP
+
+Subnets:
+  - Name: NAT_Subnet
+    Cloud: Cloud_1
+    CIDR_Block: 10.0.129.0/24
+    Internet_Accessible: true
+
+Instances:
+  - Name: NAT_Instance
+    Subnet: NAT_Subnet
+    OS: ubuntu
+    IP_Address: 10.0.129.5
+    Internet_Accessible: true
+    Roles:
+      - NAT
