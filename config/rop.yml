@@ -2,12 +2,13 @@ Roles:
   - Name: NAT
     Packages:
       - gdb
-      - nasm
       - git
+      - nasm
+      - xinetd
+      - vim
       - emacs
     Recipes:
       - sshd_password_login
-      - elf
 
 Groups:
   - Name: Instructor

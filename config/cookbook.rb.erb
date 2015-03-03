@@ -1,16 +1,11 @@
-script "install_elf" do
+script "install_rop" do
   interpreter "bash"
   user "root"
   cwd "/tmp"
 
   code <<-EOH
-  cd /tmp
-  git clone https://github.com/kahea/elf
-  cd elf
-  ./install
-  cd /tmp
-  touch test-file
+	git clone https://github.com/nickstephens/rop-edurange.git challenge-files
+	/tmp/challenge-files/config/bootstrap.sh
   EOH
 
-  not_if "test -e /tmp/test-file"
 end
