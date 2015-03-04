@@ -6,6 +6,8 @@ script "install_rop" do
   code <<-EOH
 	git clone https://github.com/nickstephens/rop-edurange.git challenge-files
 	/tmp/challenge-files/config/bootstrap.sh
+	touch /tmp/test-file
   EOH
 
+	not_if "test -e /tmp/test-file"
 end

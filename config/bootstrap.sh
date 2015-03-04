@@ -3,8 +3,8 @@
 # make vulnuser
 mkdir /home/vulnuser
 useradd -d /home/vulnuser vulnuser
-chown -R vulnuser:vulnuser /home/vulnuser
-chmod 700 /home/vulnuser
+chown -R root:vulnuser /home/vulnuser
+chmod 750 /home/vulnuser
 
 # configure vulnuser and flag
 cd /tmp/challenge-files
