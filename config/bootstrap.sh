@@ -9,7 +9,13 @@ chmod 700 /home/vulnuser
 # configure vulnuser and flag
 cd /tmp/challenge-files
 /tmp/challenge-files/generate/generate.py easy
+
+# configure the vulnerable binary
 cp /tmp/challenge-files/vuln /home/vulnuser/
+chown root:vulnuser /home/vulnuser/vuln
+chmod 750 /home/vulnuser/vuln
+
+# configure the flag
 echo "flag{congrats, this should be randomly generated in the future}" > /home/vulnuser/flag
 chown root:vulnuser /home/vulnuser/flag
 chmod 640 /home/vulnuser/flag

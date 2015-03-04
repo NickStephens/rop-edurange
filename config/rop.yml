@@ -7,6 +7,7 @@ Roles:
       - xinetd
       - vim
       - emacs
+      - gcc-multilib
     Recipes:
       - sshd_password_login
 
